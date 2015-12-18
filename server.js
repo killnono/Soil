@@ -121,7 +121,7 @@ app.delete('/api/book/:book_id', function (req, res) {
 app.get('/api/channel/:channel', function (req, res) {
 
     //1为本地,0为线上
-    var env = 1;
+    var env = 0;
     var channel = req.params.channel;
 
     var packageDir;//打包项目的路径
@@ -155,7 +155,7 @@ app.get('/api/channel/:channel', function (req, res) {
             });
 
         } else {
-            res.send('package err code = ' + code);
+            res.status(500).send('error saving:' + output);
         }
 
     });

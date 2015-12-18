@@ -20,8 +20,8 @@ function mainController($scope, $http) {
 
     // 添加一本书
     $scope.createBook = function () {
-        if ($scope.formData == {}) {
-            alert("qingshuru ")
+        if (jQuery.isEmptyObject($scope.formData)) {
+            alert("请输入书名 ")
         } else {
             $http.post('/api/book/create', $scope.formData)
                 .success(function (data) {
@@ -60,16 +60,20 @@ function mainController($scope, $http) {
 
     //添加一个打包渠道
     $scope.addChannel = function (channel) {
-        $http.get('/api/channel/' + channel)
-            .success(function (data) {
-                var result = confirm("apk 已生成完成,是否要下载")
-                if (result) {
-                    window.location.href = data;
-                }
-            })
-            .error(function (data) {
-
-            });
+        if (channel == null || channel.length == 0) {
+            alert('请输入渠道号!')
+        } else {
+            $http.get('/api/channel/' + channel)
+                .success(function (data) {
+                    var result = confirm("apk 已生成完成,是否要下载")
+                    if (result) {
+                        window.location.href = data;
+                    }
+                })
+                .error(function (data) {
+                    alert(data);
+                });
+        }
     };
 
 }
