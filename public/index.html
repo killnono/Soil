@@ -1,0 +1,126 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="onionBook">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>洋葱</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!-- load bootstrap -->
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            padding-top: 50px;
+        }
+
+        #todo-list {
+            margin-bottom: 30px;
+        }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="core.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="mainController">
+<div class="container">
+    <!--<div id="add-channel">-->
+        <span>
+            <input type="text" ng_model=channel placeholder="输入渠道">
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel(channel)">打包</button>
+            <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel('all')">打所有渠道包</button>
+
+        </span>
+    <!--</div>-->
+
+    <!-- HEADER AND TODO COUNT -->
+    <div class="jumbotron text-center">
+        <h1>Onion Book Library <span class="label label-info">{{ books.length }}</span></h1>
+        <img src="../onion.jpg"
+             width="160" height="160">
+    </div>
+
+    <!-- FORM TO CREATE TODOS -->
+    <div id="todo-form" class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+
+                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                    <input type="text" class="form-control input-lg text-center" placeholder="input a book"
+                           ng-model="formData.name">
+                </div>
+
+                <!-- createToDo() WILL CREATE NEW TODOS -->
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="createBook()">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- BOOK LIST -->
+    <div id="todo-list" class="row">
+        <div class="col-sm-2 col-sm-offset-2">
+
+            <table class="table">
+                <caption><h2>书单</h2></caption>
+                <thead>
+                <tr>
+                    <th>书id</th>
+                    <th>书名</th>
+                    <th>是否已买</th>
+                    <th>借阅者</th>
+                </tr>
+                </thead>
+
+                <tbody ng-repeat="book in books">
+                <tr>
+
+                    <td>
+                        {{book._id}}
+                    </td>
+                    <td>
+                        <input id="name" type='text' placeholder="请输入书名" ng_model=book.name>
+                    </td>
+                    <td>
+                        <input ng_model=book.isBuy type='text'>
+                    </td>
+                    <td>
+                        <input ng_model=book.have type='text'>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-lg" ng-click="updateBook(book)">
+                            修改
+                        </button>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-lg" ng-click="deleteBook(book._id)">
+                            删除
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+
+</html>

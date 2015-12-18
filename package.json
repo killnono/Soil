@@ -1,0 +1,16 @@
+{
+  "name": "Soil",
+  "version": "0.0.0",
+  "description": "soil",
+  "main": "server.js",
+  "author": "killnono",
+  "dependencies": {
+    "body-parser": "~1.5.2",
+    "express": "~4.7.2",
+    "method-override": "~2.1.2",
+    "mongoose": "~3.6.2",
+    "morgan": "~1.2.2",
+    "require-dir": "^0.3.0",
+    "shelljs": "^0.5.3"
+  }
+}
