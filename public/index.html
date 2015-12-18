@@ -40,6 +40,7 @@
         <span>
             <input type="text" ng_model=channel placeholder="输入渠道">
         <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel(channel)">打包</button>
+
             <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel('all')">打所有渠道包</button>
 
         </span>
@@ -48,7 +49,7 @@
     <!-- HEADER AND TODO COUNT -->
     <div class="jumbotron text-center">
         <h1>Onion Book Library <span class="label label-info">{{ books.length }}</span></h1>
-        <img src="../assets/img/onion.jpg"
+        <img src="assets/img/onion.jpg"
              width="160" height="160">
     </div>
 

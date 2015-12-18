@@ -57,7 +57,6 @@ app.get('', function (req, res) {
  * add a book
  */
 app.post('/api/book/create', function (req, res) {
-    console.log('book  create ');
     Book.create({
             name: req.body.name,
             have: "",
@@ -66,7 +65,15 @@ app.post('/api/book/create', function (req, res) {
             if (err) {
                 res.send(err);
             } else {
-                res.send(book)
+                console.log('create succeed :' + book);
+                Book.find(function (err, books) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        res.send(books);
+                    }
+                });
+
             }
         }
     );
@@ -114,27 +121,43 @@ app.delete('/api/book/:book_id', function (req, res) {
 app.get('/api/channel/:channel', function (req, res) {
 
     //1为本地,0为线上
-    var env = 0;
+    var env = 1;
     var channel = req.params.channel;
 
-    var dir;
+    var packageDir;//打包项目的路径
+    var packageOutputDir;//打完包输出的文件夹
+    var apkName = 'YCMath_Android_V1.6_' + channel + '.apk';//apk文件名
+
     if (env == 1) {
-        dir = '~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/'
+        packageDir = '~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/'
+        packageOutputDir = '/Users/killnono/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/YCMath/build/outputs/apk';
+
     } else {
-        dir = '/home/master/package_repository/YCMath345-Android/'
+        packageDir = '/home/master/package_repository/YCMath345-Android/'
+        packageOutputDir = '/home/master/package_repository/YCMath345-Android/YCMath/build/outputs/apk';
+
     }
+
     var shell = require('shelljs');
-    if (channel == 'all') {
-        console.log('打所有渠道');
-        shell.exec('./packageall.sh');
-    } else {
-        console.log('需要打包渠道:' + channel);
-        shell.exec('./packagesingle.sh ' + dir+" " + channel, function (code, output) {
-            console.log('code = ' + code);
+    var fs = require('fs');
+    shell.exec('./packagetask.sh ' + packageDir + " " + channel, function (code, output) {
+        console.log('code = ' + code);
+        if (code == 0) {
+            var oldPath = packageOutputDir + '/' + apkName;
+            var newPath = __dirname + '/public/apks/' + apkName;
+            fs.rename(oldPath, newPath, function (err) {
+                if (err) {
+                    console.log(' rename apk path err:' + err);
+                } else {
+                    console.log(' exec succeed,apk path = ' + newPath);
+                    res.send('apks/' + apkName)
+                }
+            });
 
-            console.log(output);
-        });
-    }
+        } else {
+            res.send('package err code = ' + code);
+        }
 
+    });
 
 });

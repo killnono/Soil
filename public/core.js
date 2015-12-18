@@ -18,26 +18,24 @@ function mainController($scope, $http) {
             console.log('Error: ' + data);
         });
 
-    // when submitting the add form, send the text to the node API
+    // 添加一本书
     $scope.createBook = function () {
-        console.log('createBook---');
-        if ($scope.formData.length == 0) {
+        if ($scope.formData == {}) {
             alert("qingshuru ")
         } else {
             $http.post('/api/book/create', $scope.formData)
                 .success(function (data) {
                     $scope.formData = {}; // clear the form so our user is ready to enter another
-
-                    console.log('success');
+                    $scope.books = data
                 })
                 .error(function (data) {
                     $scope.formData = {}
-                    console.log('Error: ' + data);
                 });
         }
     };
 
 
+    //更新一本书
     $scope.updateBook = function (book) {
         $http.post('/api/book/update', book)
             .succees(function (data) {
@@ -48,7 +46,7 @@ function mainController($scope, $http) {
             });
     };
 
-    // delete a todo after checking it
+    // 删除一本书
     $scope.deleteBook = function (id) {
         $http.delete('/api/book/' + id)
             .success(function (data) {
@@ -60,10 +58,14 @@ function mainController($scope, $http) {
             });
     };
 
+    //添加一个打包渠道
     $scope.addChannel = function (channel) {
         $http.get('/api/channel/' + channel)
             .success(function (data) {
-
+                var result = confirm("apk 已生成完成,是否要下载")
+                if (result) {
+                    window.location.href = data;
+                }
             })
             .error(function (data) {
 
