@@ -29,4 +29,4 @@ build/Release
 node_modules
 
 #apk资源文件
-.apk
+*.apk
