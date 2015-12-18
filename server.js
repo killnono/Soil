@@ -17,8 +17,8 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse applicati
 app.use(methodOverride());
 
 // listen (start app with node onionBook.js) ======================================
-app.listen(8080);
-console.log("App listening on port 8080");
+app.listen(3000);
+console.log("App listening on port 3000");
 
 
 // models
