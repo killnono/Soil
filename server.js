@@ -119,9 +119,9 @@ app.get('/api/channel/:channel', function (req, res) {
 
     var dir;
     if (env == 1) {
-        dir = '~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/ '
+        dir = '~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/'
     } else {
-        dir = '/home/master/package_repository/YCMath345-Android'
+        dir = '/home/master/package_repository/YCMath345-Android/'
     }
     var shell = require('shelljs');
     if (channel == 'all') {
@@ -129,7 +129,7 @@ app.get('/api/channel/:channel', function (req, res) {
         shell.exec('./packageall.sh');
     } else {
         console.log('需要打包渠道:' + channel);
-        shell.exec('./packagesingle.sh ' + dir + channel, function (code, output) {
+        shell.exec('./packagesingle.sh ' + dir+" " + channel, function (code, output) {
             console.log('code = ' + code);
 
             console.log(output);
