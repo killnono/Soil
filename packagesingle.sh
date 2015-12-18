@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd ~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/
+cd $1
 git checkout auto_package
-echo $1
+echo $2
 ./gradlew -Pchannels="$1" build
  

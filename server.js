@@ -20,6 +20,7 @@ app.use(methodOverride());
 app.listen(3000);
 console.log("App listening on port 3000");
 
+var Book = mongoose.model('Book');
 
 // models
 var Schema = mongoose.Schema;
@@ -113,20 +114,27 @@ app.delete('/api/book/:book_id', function (req, res) {
 //打渠道包
 app.get('/api/channel/:channel', function (req, res) {
 
+    //1为本地,0为线上
+    var env = 0;
     var channel = req.params.channel;
 
+    var dir;
+    if (env == 1) {
+        dir = '~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/ '
+    } else {
+        dir = '/home/master/package_repository/YCMath345-Android'
+    }
     var shell = require('shelljs');
     if (channel == 'all') {
         console.log('打所有渠道');
         shell.exec('./packageall.sh');
     } else {
         console.log('需要打包渠道:' + channel);
-        shell.exec('./packagesingle.sh ' + channel, function (code, output) {
+        shell.exec('./packagesingle.sh ' + dir + channel, function (code, output) {
             console.log('code = ' + code);
 
             console.log(output);
         });
-
     }
 
 
