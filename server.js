@@ -20,7 +20,6 @@ app.use(methodOverride());
 app.listen(3000);
 console.log("App listening on port 3000");
 
-var Book = mongoose.model('Book');
 
 // models
 var Schema = mongoose.Schema;
