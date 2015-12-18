@@ -140,7 +140,7 @@ app.get('/api/channel/:channel', function (req, res) {
 
     var shell = require('shelljs');
     var fs = require('fs');
-    shell.exec('./packagetask.sh ' + packageDir + " " + channel, function (code, output) {
+    shell.exec('./package_run.sh ' + packageDir + " " + channel, function (code, output) {
         console.log('code = ' + code);
         if (code == 0) {
             var oldPath = packageOutputDir + '/' + apkName;
