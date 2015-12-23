@@ -126,7 +126,7 @@ app.get('/api/channel/:channel', function (req, res) {
 
     var packageDir;//打包项目的路径
     var packageOutputDir;//打完包输出的文件夹
-    var apkName = 'YCMath_Android_V1.6_' + channel + '.apk';//apk文件名
+    var apkName = 'YCMath_Android_V2.0.0_' + channel + '.apk';//apk文件名
 
     if (env == 1) {
         packageDir = '~/Desktop/WorkSpace_Guanghe/repository/YCMath345-Android/'
