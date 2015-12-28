@@ -2,6 +2,7 @@ console.log('hello,node');
 //set up
 var express = require('express');
 var app = express();
+var http = require('http')
 var mongoose = require('mongoose');
 var morgan = require('morgan');             // log requests to the console (express4)
 var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
@@ -16,9 +17,21 @@ app.use(bodyParser.json());                                     // parse applica
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
 app.use(methodOverride());
 
-// listen (start app with node onionBook.js) ======================================
-app.listen(3000);
-console.log("App listening on port 3000");
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+    console.log('Received message from client!');
+    socket.on('login', function (user) {
+        console.log('用户登录:', user);
+        socket.emit('message', user.username);
+    });
+});
+
+server.listen(3000, function () {
+    console.log("App listening on port 3000");
+});
+//app.listen(3000);
 
 
 // models
@@ -147,17 +160,21 @@ app.get('/api/channel/:channel', function (req, res) {
             var newPath = __dirname + '/public/apks/' + apkName;
             fs.rename(oldPath, newPath, function (err) {
                 if (err) {
-                    console.log(' rename apk path err:' + err);
+                    console.log('meaasge',' rename apk path err:' + err);
+                    io.emit('message', 'rename err' + err);
                 } else {
                     console.log(' exec succeed,apk path = ' + newPath);
-                    res.send('apks/' + apkName)
+                    io.emit('packageDone', 'apks/' + apkName);
                 }
             });
 
         } else {
-            res.status(500).send('error saving:' + output);
+            io.emit('message','exec sh error:' + output);
         }
 
     });
+
+    res.send('正在打包,请等待');
+
 
 });

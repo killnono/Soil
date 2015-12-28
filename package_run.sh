@@ -8,6 +8,6 @@ then
    git checkout dev
  #./gradlew assembleReleasels
 else
-  git checkout auto_package
+  git checkout single_auto
   ./gradlew -Pchannels="$2" build
 fi

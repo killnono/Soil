@@ -20,7 +20,8 @@ function mainController($scope, $http) {
 
     // 添加一本书
     $scope.createBook = function () {
-        if (jQuery.isEmptyObject($scope.formData)) {
+
+        if ($scope.formData.length() < 1) {
             alert("请输入书名 ")
         } else {
             $http.post('/api/book/create', $scope.formData)
@@ -65,10 +66,7 @@ function mainController($scope, $http) {
         } else {
             $http.get('/api/channel/' + channel)
                 .success(function (data) {
-                    var result = confirm("apk 已生成完成,是否要下载")
-                    if (result) {
-                        window.location.href = data;
-                    }
+                    alert(data);
                 })
                 .error(function (data) {
                     alert(data);
@@ -76,4 +74,21 @@ function mainController($scope, $http) {
         }
     };
 
+    // init socket
+    $scope.socketInit = function () {
+        var socket = io.connect('http://localhost:3000');
+        //发送登录消息
+        socket.emit('login', {userid: '3232131', username: 'test'});
+        //监听消息⌚️
+        socket.on('message', function (msg) {
+            alert(msg);
+        });
+        //监听打包完成事件
+        socket.on('packageDone', function (url) {
+            var result = confirm("apk 已生成完成,是否要下载")
+            if (result) {
+                window.location.href = url;
+            }
+        });
+    }
 }

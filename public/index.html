@@ -30,6 +30,7 @@
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="http://realtime.plhwin.com:3000/socket.io/socket.io.js"></script>
     <script src="core.js"></script>
 
 </head>
@@ -39,9 +40,9 @@
     <!--<div id="add-channel">-->
         <span>
             <input type="text" ng_model=channel placeholder="输入渠道">
-        <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel(channel)">打包</button>
-
+            <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel(channel)">打包</button>
             <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel('all')">打所有渠道包</button>
+            <button type="submit" class="btn btn-primary btn-lg" ng-click="socketInit()">Socket Connect</button>
 
         </span>
     <!--</div>-->
@@ -64,7 +65,6 @@
                            ng-model="formData.name">
                 </div>
 
-                <!-- createToDo() WILL CREATE NEW TODOS -->
                 <button type="submit" class="btn btn-primary btn-lg" ng-click="createBook()">Add</button>
             </form>
         </div>
