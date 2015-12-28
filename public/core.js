@@ -76,7 +76,13 @@ function mainController($scope, $http) {
 
     // init socket
     $scope.socketInit = function () {
-        var socket = io.connect('http://localhost:3000');
+        //1为本地,0为线上
+        var env = 0;
+        var socketHost = 'http://localhost:3000';
+        if (env == 0) {
+            socketHost = 'http://ronfe.net:3000';
+        }
+        var socket = io.connect(socketHost);
         //发送登录消息
         socket.emit('login', {userid: '3232131', username: 'test'});
         //监听消息⌚️
