@@ -18,21 +18,22 @@ function mainController($scope, $http) {
             console.log('Error: ' + data);
         });
 
+
     // 添加一本书
     $scope.createBook = function () {
 
-        if ($scope.formData.length() < 1) {
-            alert("请输入书名 ")
-        } else {
-            $http.post('/api/book/create', $scope.formData)
-                .success(function (data) {
-                    $scope.formData = {}; // clear the form so our user is ready to enter another
-                    $scope.books = data
-                })
-                .error(function (data) {
-                    $scope.formData = {}
-                });
-        }
+        //if ($scope.formData.size < 1) {
+        //    alert("请输入书名 ")
+        //} else {
+        $http.post('/api/book/create', $scope.formData)
+            .success(function (data) {
+                $scope.formData = {}; // clear the form so our user is ready to enter another
+                $scope.books = data
+            })
+            .error(function (data) {
+                $scope.formData = {}
+            });
+        //}
     };
 
 
@@ -96,7 +97,7 @@ function mainController($scope, $http) {
                 window.location.href = url;
             }
         });
-    }
+    };
 
     //执行初始化
     $scope.socketInit();
