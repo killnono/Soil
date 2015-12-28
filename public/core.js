@@ -84,7 +84,7 @@ function mainController($scope, $http) {
         }
         var socket = io.connect(socketHost);
         //发送登录消息
-        socket.emit('login', {userid: '3232131', username: 'test'});
+        socket.emit('login', {userid: 'testid123', username: '洋葱君'});
         //监听消息⌚️
         socket.on('message', function (msg) {
             alert(msg);
@@ -97,4 +97,7 @@ function mainController($scope, $http) {
             }
         });
     }
+
+    //执行初始化
+    $scope.socketInit();
 }

@@ -32,7 +32,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
     <script src="http://realtime.plhwin.com:3000/socket.io/socket.io.js"></script>
     <script src="core.js"></script>
-
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
 <body ng-controller="mainController">
@@ -42,7 +41,7 @@
             <input type="text" ng_model=channel placeholder="输入渠道">
             <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel(channel)">打包</button>
             <button type="submit" class="btn btn-primary btn-lg" ng-click="addChannel('all')">打所有渠道包</button>
-            <button type="submit" class="btn btn-primary btn-lg" ng-click="socketInit()">Socket Connect</button>
+            <!--<button type="submit" class="btn btn-primary btn-lg" ng-click="socketInit()">Socket Connect</button>-->
 
         </span>
     <!--</div>-->

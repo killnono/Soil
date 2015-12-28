@@ -24,7 +24,7 @@ io.sockets.on('connection', function (socket) {
     console.log('Received message from client!');
     socket.on('login', function (user) {
         console.log('用户登录:', user);
-        socket.emit('message', user.username);
+        socket.emit('message', user.username + '欢迎登录');
     });
 });
 
@@ -160,7 +160,7 @@ app.get('/api/channel/:channel', function (req, res) {
             var newPath = __dirname + '/public/apks/' + apkName;
             fs.rename(oldPath, newPath, function (err) {
                 if (err) {
-                    console.log('meaasge',' rename apk path err:' + err);
+                    console.log('meaasge', ' rename apk path err:' + err);
                     io.emit('message', 'rename err' + err);
                 } else {
                     console.log(' exec succeed,apk path = ' + newPath);
@@ -169,7 +169,7 @@ app.get('/api/channel/:channel', function (req, res) {
             });
 
         } else {
-            io.emit('message','exec sh error:' + output);
+            io.emit('message', 'exec sh error:' + output);
         }
 
     });
